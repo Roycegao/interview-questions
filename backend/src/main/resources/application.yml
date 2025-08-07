@@ -10,7 +10,7 @@ spring:
       #基本属性
       url: jdbc:mysql://124.220.68.114:3306/shop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
       username: root
-      password: MySql#1^2)z2025
+      password: ENC(bwPG9N6ZAU2amzsHSO6fpRFzVh/HOnYH)
       #配置初始化大小/最小/最大
       initial-size: 1
       min-idle: 1
@@ -43,3 +43,16 @@ pagehelper:
   supportMethodsArguments: true
   reasonable: true
   helperDialect: mysql
+
+jasypt:
+  encryptor:
+    # 盐值
+    password: USDT_JIU_BU_GEI_NI
+    # 指定加密方式
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    property:
+      # 标识为加密属性的前缀
+      prefix: ENC(
+      # 标识为加密属性的后缀
+      suffix: )
