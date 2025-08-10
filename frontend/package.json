@@ -36,6 +36,35 @@
       "react-app/jest"
     ]
   },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js",
+      "^axios$": "<rootDir>/src/__mocks__/axios.ts",
+      "^antd$": "<rootDir>/src/__mocks__/antd.ts"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(axios|antd)/)"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/index.tsx",
+      "!src/setupTests.ts",
+      "!src/**/__tests__/**",
+      "!src/**/*.test.{js,jsx,ts,tsx}",
+      "!src/**/*.spec.{js,jsx,ts,tsx}"
+    ],
+    "coverageReporters": ["text", "lcov", "html"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -49,10 +78,18 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/plugin-transform-runtime": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
-    "cross-env": "^10.0.0"
+    "babel-jest": "^30.0.5",
+    "cross-env": "^10.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "ts-jest": "^29.4.1"
   }
 }
