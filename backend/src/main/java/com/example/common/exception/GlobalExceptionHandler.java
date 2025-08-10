@@ -15,24 +15,24 @@ import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 
 /**
- * 全局异常处理器
+ * Global Exception Handler
  */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     
     /**
-     * 业务异常处理
+     * Business Exception Handler
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.OK)
     public Result<Void> handleBusinessException(BusinessException e) {
-        log.warn("业务异常: {}", e.getMessage(), e);
+        log.warn("Business exception: {}", e.getMessage(), e);
         return Result.error(e.getErrorCode(), e.getDetails());
     }
     
     /**
-     * 参数校验异常处理 - @Valid
+     * Parameter Validation Exception Handler - @Valid
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -40,12 +40,12 @@ public class GlobalExceptionHandler {
         String errorMessage = e.getBindingResult().getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
                 .collect(Collectors.joining(", "));
-        log.warn("参数校验异常: {}", errorMessage);
+        log.warn("Parameter validation exception: {}", errorMessage);
         return Result.error(ErrorCode.PARAM_INVALID, errorMessage);
     }
     
     /**
-     * 参数校验异常处理 - @Validated
+     * Parameter Validation Exception Handler - @Validated
      */
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -53,12 +53,12 @@ public class GlobalExceptionHandler {
         String errorMessage = e.getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
                 .collect(Collectors.joining(", "));
-        log.warn("参数绑定异常: {}", errorMessage);
+        log.warn("Parameter binding exception: {}", errorMessage);
         return Result.error(ErrorCode.PARAM_INVALID, errorMessage);
     }
     
     /**
-     * 约束校验异常处理
+     * Constraint Validation Exception Handler
      */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -66,47 +66,47 @@ public class GlobalExceptionHandler {
         String errorMessage = e.getConstraintViolations().stream()
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining(", "));
-        log.warn("约束校验异常: {}", errorMessage);
+        log.warn("Constraint validation exception: {}", errorMessage);
         return Result.error(ErrorCode.PARAM_INVALID, errorMessage);
     }
     
     /**
-     * 非法参数异常处理
+     * Illegal Argument Exception Handler
      */
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result<Void> handleIllegalArgumentException(IllegalArgumentException e) {
-        log.warn("非法参数异常: {}", e.getMessage(), e);
+        log.warn("Illegal argument exception: {}", e.getMessage(), e);
         return Result.error(ErrorCode.PARAM_INVALID, e.getMessage());
     }
     
     /**
-     * 空指针异常处理
+     * Null Pointer Exception Handler
      */
     @ExceptionHandler(NullPointerException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Void> handleNullPointerException(NullPointerException e) {
-        log.error("空指针异常", e);
-        return Result.error(ErrorCode.SYSTEM_ERROR, "系统内部错误");
+        log.error("Null pointer exception", e);
+        return Result.error(ErrorCode.SYSTEM_ERROR, "System internal error");
     }
     
     /**
-     * 通用运行时异常处理
+     * General Runtime Exception Handler
      */
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Void> handleRuntimeException(RuntimeException e) {
-        log.error("运行时异常: {}", e.getMessage(), e);
+        log.error("Runtime exception: {}", e.getMessage(), e);
         return Result.error(ErrorCode.SYSTEM_ERROR, e.getMessage());
     }
     
     /**
-     * 通用异常处理
+     * General Exception Handler
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Result<Void> handleException(Exception e) {
-        log.error("未知异常: {}", e.getMessage(), e);
-        return Result.error(ErrorCode.SYSTEM_ERROR, "系统异常，请联系管理员");
+        log.error("Unknown exception: {}", e.getMessage(), e);
+        return Result.error(ErrorCode.SYSTEM_ERROR, "System exception, please contact administrator");
     }
 } 

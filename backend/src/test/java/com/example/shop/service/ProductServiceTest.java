@@ -116,14 +116,14 @@ class ProductServiceTest {
         updateProduct.setQuantity(75);
         updateProduct.setVisible(true);
 
-        when(productDao.selectById(1L)).thenReturn(testProduct); // 添加这行：模拟商品存在
+        when(productDao.selectById(1L)).thenReturn(testProduct); // Add this line: Mock product exists
         when(productDao.update(any(Product.class))).thenReturn(1);
 
         // When
         productService.updateProduct(1L, updateProduct);
 
         // Then
-        verify(productDao).selectById(1L); // 验证先检查商品是否存在
+        verify(productDao).selectById(1L); // Verify first check if product exists
         verify(productDao).update(any(Product.class));
     }
 
@@ -134,7 +134,7 @@ class ProductServiceTest {
         Product updateProduct = new Product();
         updateProduct.setName("Update Product");
         
-        when(productDao.selectById(999L)).thenReturn(null); // 模拟商品不存在
+        when(productDao.selectById(999L)).thenReturn(null); // Mock product doesn't exist
 
         // When & Then
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
@@ -143,19 +143,19 @@ class ProductServiceTest {
         
         assertEquals("Product not found, ID: 999", exception.getMessage());
         verify(productDao).selectById(999L);
-        verify(productDao, never()).update(any(Product.class)); // 验证不会调用update
+        verify(productDao, never()).update(any(Product.class)); // Verify update is not called
     }
 
     @Test
     @DisplayName("Delete Product - Success")
     void testDeleteProduct_Success() {
         // Given
-        when(productDao.selectById(1L)).thenReturn(testProduct); // 添加这行：模拟商品存在
+        when(productDao.selectById(1L)).thenReturn(testProduct); // Add this line: Mock product exists
         when(productDao.deleteById(1L)).thenReturn(1);
 
         // When & Then
         assertDoesNotThrow(() -> productService.deleteProduct(1L));
-        verify(productDao).selectById(1L); // 验证先检查商品是否存在
+        verify(productDao).selectById(1L); // Verify first check if product exists
         verify(productDao).deleteById(1L);
     }
 
@@ -163,7 +163,7 @@ class ProductServiceTest {
     @DisplayName("Delete Product - Product Not Found")
     void testDeleteProduct_NotFound() {
         // Given
-        when(productDao.selectById(999L)).thenReturn(null); // 模拟商品不存在
+        when(productDao.selectById(999L)).thenReturn(null); // Mock product doesn't exist
 
         // When & Then
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
@@ -172,7 +172,7 @@ class ProductServiceTest {
         
         assertEquals("Product not found, ID: 999", exception.getMessage());
         verify(productDao).selectById(999L);
-        verify(productDao, never()).deleteById(999L); // 验证不会调用delete
+        verify(productDao, never()).deleteById(999L); // Verify delete is not called
     }
 
     @Test
@@ -208,7 +208,7 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("分页查询商品 - 简化版本")
+    @DisplayName("Pagination Query Products - Simplified Version")
     void testGetProducts_WithPageHelper() {
         // Given
         List<Product> products = Arrays.asList(testProduct);
@@ -220,7 +220,7 @@ class ProductServiceTest {
             queryRequest.getVisible()
         )).thenReturn(products);
 
-        // When (不使用静态Mock，直接测试业务逻辑)
+        // When (Don't use static Mock, directly test business logic)
         try {
             PageResponse<Product> result = productService.getProducts(queryRequest);
             
@@ -232,9 +232,9 @@ class ProductServiceTest {
             
             verify(productDao).selectProducts(null, null, null, null);
         } catch (Exception e) {
-            // 如果PageInfo相关代码有问题，我们至少验证DAO调用
+            // If PageInfo related code has issues, we at least verify DAO calls
             verify(productDao).selectProducts(null, null, null, null);
-            // 测试通过，因为我们关注的是业务逻辑而不是分页工具
+            // Test passes, because we focus on business logic not pagination tools
         }
     }
 } 

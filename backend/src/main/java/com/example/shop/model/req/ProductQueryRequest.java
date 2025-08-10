@@ -10,37 +10,37 @@ import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 
 /**
- * 产品查询请求
+ * Product Query Request
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "ProductQueryRequest", description = "产品查询请求参数")
+@ApiModel(value = "ProductQueryRequest", description = "Product Query Request Parameters")
 public class ProductQueryRequest extends PageRequest {
     
     /**
-     * 产品名称（模糊查询）
+     * Product Name (Fuzzy Query)
      */
-    @ApiModelProperty(value = "产品名称", example = "iPhone", notes = "支持模糊查询")
+    @ApiModelProperty(value = "Product Name", example = "iPhone", notes = "Supports fuzzy query")
     private String name;
     
     /**
-     * 最低价格
+     * Minimum Price
      */
-    @DecimalMin(value = "0.00", message = "最低价格不能小于0")
-    @ApiModelProperty(value = "最低价格", example = "100.00", notes = "价格范围查询的最低价格")
+    @DecimalMin(value = "0.00", message = "Minimum price cannot be less than 0")
+    @ApiModelProperty(value = "Minimum Price", example = "100.00", notes = "Minimum price for price range query")
     private BigDecimal minPrice;
     
     /**
-     * 最高价格
+     * Maximum Price
      */
-    @DecimalMin(value = "0.00", message = "最高价格不能小于0")
-    @ApiModelProperty(value = "最高价格", example = "1000.00", notes = "价格范围查询的最高价格")
+    @DecimalMin(value = "0.00", message = "Maximum price cannot be less than 0")
+    @ApiModelProperty(value = "Maximum Price", example = "1000.00", notes = "Maximum price for price range query")
     private BigDecimal maxPrice;
     
     /**
-     * 是否可见
+     * Whether visible
      */
-    @ApiModelProperty(value = "是否可见", example = "true", notes = "true=可见，false=不可见，null=查询所有")
+    @ApiModelProperty(value = "Whether Visible", example = "true", notes = "true=visible, false=invisible, null=query all")
     private Boolean visible;
     
     public ProductQueryRequest() {

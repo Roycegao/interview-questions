@@ -65,7 +65,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     navigate(key);
   };
 
-  // PC端布局
+  // Desktop Layout
   if (!isMobile && !isSmallMobile) {
     return (
       <AntHeader className={`${styles.header} ${className || ''}`}>
@@ -101,11 +101,11 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
     );
   }
 
-  // 手机端布局
+  // Mobile Layout
   return (
     <AntHeader className={`${styles.header} ${className || ''} ${isSmallMobile ? styles.headerSmallMobile : styles.headerMobile}`}>
       <div className={`${styles.headerContainer} ${isSmallMobile ? styles.headerContainerSmallMobile : styles.headerContainerMobile}`}>
-        {/* 第一行：Logo和购物车按钮 */}
+        {/* First Row: Logo and Cart Button */}
         <div className={`${styles.mobileTopRow} ${isSmallMobile ? styles.mobileTopRowSmall : ''}`}>
           {/* Logo */}
           <div className={`${styles.logo} ${isSmallMobile ? styles.logoSmallMobile : styles.logoMobile}`}>
@@ -113,7 +113,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
             Basic Shop
           </div>
 
-          {/* 右上角购物车按钮 */}
+          {/* Top Right Cart Button */}
           <Button 
             type="primary" 
             icon={<ShoppingCartOutlined />}
@@ -125,7 +125,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           </Button>
         </div>
 
-        {/* 第二行：导航菜单 */}
+        {/* Second Row: Navigation Menu */}
         <Menu
           mode="horizontal"
           selectedKeys={[location.pathname]}

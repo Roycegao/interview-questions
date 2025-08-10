@@ -99,7 +99,7 @@ public class CartServiceImpl implements CartService {
         Cart cart = getCart(userId);
         CartItem cartItem = getAndValidateCartItem(itemId, cart.getId());
         
-        // 恢复库存
+        // Restore inventory
         restoreProductStock(cartItem.getProductId(), cartItem.getQuantity());
         
         cartDao.deleteCartItemById(itemId);

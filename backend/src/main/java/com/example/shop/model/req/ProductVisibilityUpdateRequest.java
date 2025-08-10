@@ -5,13 +5,14 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
- * 更新产品可见性请求
+ * Update Product Visibility Request
  */
 @Data
 public class ProductVisibilityUpdateRequest {
     /**
-     * 是否可见
+     * Whether visible
      */
-    @NotNull(message = "可见性状态不能为空")
+    @NotNull(message = "Visibility status cannot be empty")
+
     private Boolean visible;
 } 

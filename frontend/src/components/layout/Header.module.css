@@ -52,7 +52,7 @@
     align-items: stretch;
   }
 
-  /* 手机端第一行布局 */
+  /* Mobile First Row Layout */
   .mobileTopRow {
     display: flex;
     justify-content: space-between;
@@ -98,7 +98,7 @@
     font-size: 14px;
   }
 
-  /* 手机端购物车按钮 */
+  /* Mobile Cart Button */
   .mobileCartButton {
     flex-shrink: 0;
     height: 28px;
@@ -122,7 +122,7 @@
   display: flex;
 }
 
-/* Ensure PC端菜单保持水平布局 */
+/* Ensure Desktop Menu Maintains Horizontal Layout */
 .navigationMenu :global(.ant-menu-horizontal) {
   display: flex !important;
   flex-direction: row !important;

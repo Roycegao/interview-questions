@@ -31,10 +31,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.notNullValue;
 
 /**
- * CartController 单元测试
+ * CartController Unit Test
  */
 @ExtendWith(MockitoExtension.class)
-@DisplayName("购物车控制器单元测试")
+@DisplayName("Cart Controller Unit Test")
 class CartControllerTest {
 
     private MockMvc mockMvc;
@@ -52,21 +52,21 @@ class CartControllerTest {
 
     @BeforeEach
     void setUp() {
-        // 手动构建MockMvc，不依赖Spring上下文
+        // Manually build MockMvc, don't depend on Spring context
         mockMvc = MockMvcBuilders.standaloneSetup(cartController).build();
         objectMapper = new ObjectMapper();
         
-        // 准备测试购物车项
+        // Prepare test cart item
         testCartItem = new CartItem();
         testCartItem.setId(1L);
         testCartItem.setCartId(1L);
         testCartItem.setProductId(1L);
-        testCartItem.setProductName("测试商品");
+        testCartItem.setProductName("Test Product");
         testCartItem.setPrice(new BigDecimal("99.99"));
         testCartItem.setQuantity(2);
         testCartItem.setTotalPrice(new BigDecimal("199.98"));
 
-        // 准备测试购物车
+        // Prepare test cart
         testCart = new Cart();
         testCart.setId(1L);
         testCart.setUserId(123456L);
@@ -76,18 +76,18 @@ class CartControllerTest {
         testCart.setCreatedAt(LocalDateTime.now());
         testCart.setUpdatedAt(LocalDateTime.now());
 
-        // 准备Mock Session
+        // Prepare Mock Session
         mockSession = new MockHttpSession();
         mockSession.setAttribute("userId", "test-user-123");
     }
 
     @Test
-    @DisplayName("获取购物车 - 成功")
+    @DisplayName("Get Cart - Success")
     void testGetCart_Success() throws Exception {
-        // 准备测试数据
+        // Prepare test data
         when(cartService.getCart(anyLong())).thenReturn(testCart);
 
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(get("/api/cart")
                         .session(mockSession))
                 .andDo(print())
@@ -100,20 +100,20 @@ class CartControllerTest {
                 .andExpect(jsonPath("$.data.totalAmount").value(199.98))
                 .andExpect(jsonPath("$.data.itemCount").value(2))
                 .andExpect(jsonPath("$.data.items").isArray())
-                .andExpect(jsonPath("$.data.items[0].productName").value("测试商品"));
+                .andExpect(jsonPath("$.data.items[0].productName").value("Test Product"));
     }
 
     @Test
-    @DisplayName("添加商品到购物车 - 成功")
+    @DisplayName("Add Product to Cart - Success")
     void testAddToCart_Success() throws Exception {
-        // 准备测试数据
+        // Prepare test data
         CartItemAddRequest request = new CartItemAddRequest();
         request.setProductId(1L);
         request.setQuantity(3);
 
         // CartService.addToCart is void method, no need to mock return value
 
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(post("/api/cart/items")
                         .session(mockSession)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -127,13 +127,13 @@ class CartControllerTest {
     }
 
     @Test
-    @DisplayName("添加商品到购物车 - 参数校验失败")
+    @DisplayName("Add Product to Cart - Parameter Validation Failed")
     void testAddToCart_ValidationFailed() throws Exception {
-        // 准备测试数据（缺少必填字段）
+        // Prepare test data (missing required fields)
         CartItemAddRequest request = new CartItemAddRequest();
-        // 不设置productId，触发校验失败
+        // Do not set productId to trigger validation failure
 
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(post("/api/cart/items")
                         .session(mockSession)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -143,15 +143,15 @@ class CartControllerTest {
     }
 
     @Test
-    @DisplayName("更新购物车商品数量 - 成功")
+    @DisplayName("Update Cart Item Quantity - Success")
     void testUpdateCartItem_Success() throws Exception {
-        // 准备测试数据
+        // Prepare test data
         CartItemUpdateRequest request = new CartItemUpdateRequest();
         request.setQuantity(5);
 
         // CartService.updateCartItem is void method, no need to mock return value
 
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(put("/api/cart/items/{itemId}", 1L)
                         .session(mockSession)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -164,12 +164,12 @@ class CartControllerTest {
     }
 
     @Test
-    @DisplayName("删除购物车商品 - 成功")
+    @DisplayName("Remove Cart Item - Success")
     void testRemoveFromCart_Success() throws Exception {
-        // 准备测试数据
+        // Prepare test data
         // CartService.removeFromCart is void method, no need to mock return value
 
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(delete("/api/cart/items/{itemId}", 1L)
                         .session(mockSession))
                 .andDo(print())
@@ -180,9 +180,9 @@ class CartControllerTest {
     }
 
     @Test
-    @DisplayName("清空购物车 - 成功")
+    @DisplayName("Clear Cart - Success")
     void testClearCart_Success() throws Exception {
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(delete("/api/cart")
                         .session(mockSession))
                 .andDo(print())
@@ -193,12 +193,12 @@ class CartControllerTest {
     }
 
     @Test
-    @DisplayName("获取购物车商品数量 - 成功")
+    @DisplayName("Get Cart Item Count - Success")
     void testGetCartItemCount_Success() throws Exception {
-        // 准备测试数据
+        // Prepare test data
         when(cartService.getCartItemCount(anyLong())).thenReturn(5);
 
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(get("/api/cart/count")
                         .session(mockSession))
                 .andDo(print())
@@ -209,13 +209,13 @@ class CartControllerTest {
     }
 
     @Test
-    @DisplayName("计算购物车总价 - 成功")
+    @DisplayName("Calculate Cart Total - Success")
     void testGetCartTotal_Success() throws Exception {
-        // 准备测试数据
+        // Prepare test data
         BigDecimal total = new BigDecimal("199.98");
         when(cartService.getCartTotal(anyLong())).thenReturn(total);
 
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(get("/api/cart/total")
                         .session(mockSession))
                 .andDo(print())
@@ -226,14 +226,14 @@ class CartControllerTest {
     }
 
     @Test
-    @DisplayName("Session管理 - 新用户自动创建Session")
+    @DisplayName("Session Management - New User Automatically Creates Session")
     void testSessionManagement_NewUser() throws Exception {
-        // 使用新的空Session
+        // Use a new empty session
         MockHttpSession newSession = new MockHttpSession();
 
         when(cartService.getCart(anyLong())).thenReturn(testCart);
 
-        // 执行测试并验证
+        // Execute test and verify
         mockMvc.perform(get("/api/cart")
                         .session(newSession))
                 .andDo(print())

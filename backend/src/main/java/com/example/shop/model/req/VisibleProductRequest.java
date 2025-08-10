@@ -5,14 +5,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 查询可见产品请求
+ * Query Visible Products Request
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class VisibleProductRequest extends PageRequest {
     
     /**
-     * 产品名称（模糊查询）
+     * Product Name (Fuzzy Query)
      */
     private String name;
     

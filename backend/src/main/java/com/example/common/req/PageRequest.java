@@ -8,25 +8,25 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 /**
- * 分页请求基类
+ * Pagination Request Base Class
  */
 @Data
-@ApiModel(value = "PageRequest", description = "分页请求参数")
+@ApiModel(value = "PageRequest", description = "Pagination Request Parameters")
 public class PageRequest {
     
     /**
-     * 页码，从1开始
+     * Page Number, starting from 1
      */
-    @Min(value = 1, message = "页码必须大于0")
-    @ApiModelProperty(value = "页码", example = "1", notes = "从1开始")
+    @Min(value = 1, message = "Page number must be greater than 0")
+    @ApiModelProperty(value = "Page Number", example = "1", notes = "Starting from 1")
     private Integer pageNum = 1;
     
     /**
-     * 每页大小
+     * Page Size
      */
-    @Min(value = 1, message = "每页大小必须大于0")
-    @Max(value = 100, message = "每页大小不能超过100")
-    @ApiModelProperty(value = "每页大小", example = "10", notes = "最大100")
+    @Min(value = 1, message = "Page size must be greater than 0")
+    @Max(value = 100, message = "Page size cannot exceed 100")
+    @ApiModelProperty(value = "Page Size", example = "10", notes = "Maximum 100")
     private Integer pageSize = 10;
     
     public PageRequest() {}

@@ -26,7 +26,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@DisplayName("购物车服务测试")
+@DisplayName("Cart Service Test")
 class CartServiceTest {
 
     @Mock
@@ -46,7 +46,7 @@ class CartServiceTest {
     void setUp() {
         testProduct = new Product();
         testProduct.setId(1L);
-        testProduct.setName("测试商品");
+        testProduct.setName("Test Product");
         testProduct.setPrice(new BigDecimal("99.99"));
         testProduct.setQuantity(100);
         testProduct.setVisible(true);
@@ -55,7 +55,7 @@ class CartServiceTest {
         testCartItem.setId(1L);
         testCartItem.setCartId(1L);
         testCartItem.setProductId(1L);
-        testCartItem.setProductName("测试商品");
+        testCartItem.setProductName("Test Product");
         testCartItem.setPrice(new BigDecimal("99.99"));
         testCartItem.setQuantity(2);
         testCartItem.setTotalPrice(new BigDecimal("199.98"));
@@ -71,7 +71,7 @@ class CartServiceTest {
     }
 
     @Test
-    @DisplayName("获取购物车 - 购物车存在")
+    @DisplayName("Get Cart - Cart Exists")
     void testGetCart_CartExists() {
         // Given
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
@@ -89,13 +89,13 @@ class CartServiceTest {
         assertEquals(2, result.getItemCount());
 
         verify(cartDao).selectByUserId(1L);
-        // calculateCartTotals 会调用这两个方法
+        // calculateCartTotals will call these two methods
         verify(cartDao).sumCartTotal(1L);
         verify(cartDao).countCartItems(1L);
     }
 
     @Test
-    @DisplayName("获取购物车 - 购物车不存在，自动创建")
+    @DisplayName("Get Cart - Cart Not Exists, Auto Create")
     void testGetCart_CartNotExists_CreateNew() {
         // Given
         Cart newCart = new Cart();
@@ -103,7 +103,7 @@ class CartServiceTest {
         newCart.setUserId(1L);
 
         when(cartDao.selectByUserId(1L)).thenReturn(null).thenReturn(newCart);
-        when(cartDao.insertCart(any(Cart.class))).thenReturn(1);
+        when(cartDao.insertCart(any(Cart.class)).thenReturn(1);
 
         // When
         Cart result = cartService.getCart(1L);
@@ -117,13 +117,13 @@ class CartServiceTest {
     }
 
     @Test
-    @DisplayName("添加商品到购物车 - 成功添加新商品")
+    @DisplayName("Add Product to Cart - Successfully Add New Product")
     void testAddToCart_NewProduct_Success() {
         // Given
         when(productDao.selectById(1L)).thenReturn(testProduct);
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
         when(cartDao.selectCartItemByCartIdAndProductId(1L, 1L)).thenReturn(null);
-        when(cartDao.insertCartItem(any(CartItem.class))).thenReturn(1);
+        when(cartDao.insertCartItem(any(CartItem.class)).thenReturn(1);
 
         // When
         cartService.addToCart(1L, 1L, 2);
@@ -136,7 +136,7 @@ class CartServiceTest {
     }
 
     @Test
-    @DisplayName("添加商品到购物车 - 商品不存在")
+    @DisplayName("Add Product to Cart - Product Not Found")
     void testAddToCart_ProductNotFound() {
         // Given
         when(productDao.selectById(999L)).thenReturn(null);
@@ -151,7 +151,7 @@ class CartServiceTest {
     }
 
     @Test
-    @DisplayName("添加商品到购物车 - 商品不可见")
+    @DisplayName("Add Product to Cart - Product Invisible")
     void testAddToCart_ProductInvisible() {
         // Given
         testProduct.setVisible(false);
@@ -167,7 +167,7 @@ class CartServiceTest {
     }
 
     @Test
-    @DisplayName("添加商品到购物车 - 库存不足")
+    @DisplayName("Add Product to Cart - Insufficient Stock")
     void testAddToCart_InsufficientStock() {
         // Given
         testProduct.setQuantity(1);
@@ -183,10 +183,10 @@ class CartServiceTest {
     }
 
     @Test
-    @DisplayName("添加商品到购物车 - 更新现有商品数量")
+    @DisplayName("Add Product to Cart - Update Existing Item Quantity")
     void testAddToCart_UpdateExistingItem_Success() {
         // Given
-        testProduct.setQuantity(10); // 确保库存充足
+        testProduct.setQuantity(10); // Ensure sufficient stock
         when(productDao.selectById(1L)).thenReturn(testProduct);
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
         when(cartDao.selectCartItemByCartIdAndProductId(1L, 1L)).thenReturn(testCartItem);
@@ -197,18 +197,18 @@ class CartServiceTest {
 
         // Then
         verify(cartDao).selectCartItemByCartIdAndProductId(1L, 1L);
-        verify(productDao).update(any(Product.class)); // 验证库存扣减
+        verify(productDao).update(any(Product.class)); // Verify inventory deduction
         verify(cartDao).updateCartItem(any(CartItem.class));
         verify(cartDao, atLeastOnce()).selectByUserId(1L);
     }
 
     @Test
-    @DisplayName("更新购物车商品数量 - 成功")
+    @DisplayName("Update Cart Item Quantity - Success")
     void testUpdateCartItem_Success() {
         // Given
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
         when(cartDao.selectCartItemById(1L)).thenReturn(testCartItem);
-        when(productDao.selectById(1L)).thenReturn(testProduct); // 需要产品信息来更新库存
+        when(productDao.selectById(1L)).thenReturn(testProduct); // Need product info to update inventory
         when(productDao.update(any(Product.class))).thenReturn(1);
 
         // When
@@ -216,13 +216,13 @@ class CartServiceTest {
 
         // Then
         verify(cartDao).selectCartItemById(1L);
-        verify(productDao).selectById(1L); // 验证获取产品信息
-        verify(productDao).update(any(Product.class)); // 验证库存更新
+        verify(productDao).selectById(1L); // Verify get product info
+        verify(productDao).update(any(Product.class)); // Verify inventory update
         verify(cartDao).updateCartItem(any(CartItem.class));
     }
 
     @Test
-    @DisplayName("更新购物车商品数量 - 商品不存在")
+    @DisplayName("Update Cart Item Quantity - Item Not Found")
     void testUpdateCartItem_ItemNotFound() {
         // Given
         when(cartDao.selectCartItemById(999L)).thenReturn(null);
@@ -238,7 +238,7 @@ class CartServiceTest {
     }
 
     @Test
-    @DisplayName("从购物车移除商品 - 成功")
+    @DisplayName("Remove Product from Cart - Success")
     void testRemoveFromCart_Success() {
         // Given
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
@@ -251,19 +251,19 @@ class CartServiceTest {
 
         // Then
         verify(cartDao).selectCartItemById(1L);
-        verify(productDao).selectById(1L); // 验证获取产品信息
-        verify(productDao).update(any(Product.class)); // 验证库存恢复
+        verify(productDao).selectById(1L); // Verify get product info
+        verify(productDao).update(any(Product.class)); // Verify inventory restoration
         verify(cartDao).deleteCartItemById(1L);
     }
 
     @Test
-    @DisplayName("清空购物车 - 成功")
+    @DisplayName("Clear Cart - Success")
     void testClearCart_Success() {
         // Given
         List<CartItem> cartItems = Arrays.asList(testCartItem);
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
         when(cartDao.selectCartItems(1L)).thenReturn(cartItems);
-        when(productDao.selectByIds(Arrays.asList(1L))).thenReturn(Arrays.asList(testProduct));
+        when(productDao.selectByIds(Arrays.asList(1L)).thenReturn(Arrays.asList(testProduct));
         when(productDao.batchUpdate(anyList())).thenReturn(1);
 
         // When
@@ -271,13 +271,13 @@ class CartServiceTest {
 
         // Then
         verify(cartDao).selectCartItems(1L);
-        verify(productDao).selectByIds(Arrays.asList(1L)); // 验证批量获取产品信息
-        verify(productDao).batchUpdate(anyList()); // 验证批量更新库存
+        verify(productDao).selectByIds(Arrays.asList(1L)); // Verify batch get product info
+        verify(productDao).batchUpdate(anyList()); // Verify batch update inventory
         verify(cartDao).deleteCartItemsByCartId(1L);
     }
 
     @Test
-    @DisplayName("获取购物车商品数量 - 成功")
+    @DisplayName("Get Cart Item Count - Success")
     void testGetCartItemCount_Success() {
         // Given
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
@@ -290,12 +290,12 @@ class CartServiceTest {
         // Then
         assertEquals(5, result);
         verify(cartDao).selectByUserId(1L);
-        // countCartItems会被调用两次：一次在getCart的calculateCartTotals中，一次在getCartItemCount中
+        // countCartItems will be called twice: once in getCart's calculateCartTotals, once in getCartItemCount
         verify(cartDao, times(2)).countCartItems(1L);
     }
 
     @Test
-    @DisplayName("计算购物车总价 - 成功")
+    @DisplayName("Calculate Cart Total - Success")
     void testGetCartTotal_Success() {
         // Given
         BigDecimal expectedTotal = new BigDecimal("199.98");
@@ -309,7 +309,7 @@ class CartServiceTest {
         // Then
         assertEquals(expectedTotal, result);
         verify(cartDao).selectByUserId(1L);
-        // sumCartTotal会被调用两次：一次在getCart的calculateCartTotals中，一次在getCartTotal中
+        // sumCartTotal will be called twice: once in getCart's calculateCartTotals, once in getCartTotal
         verify(cartDao, times(2)).sumCartTotal(1L);
     }
 } 

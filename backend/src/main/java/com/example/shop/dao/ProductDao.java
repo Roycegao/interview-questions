@@ -8,13 +8,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 产品DAO接口
+ * Product DAO Interface
  */
 @Mapper
 public interface ProductDao {
     
     /**
-     * 查询产品列表（分页）
+     * Query Product List (Pagination)
      */
     List<Product> selectProducts(@Param("name") String name,
                                 @Param("minPrice") BigDecimal minPrice,
@@ -22,47 +22,47 @@ public interface ProductDao {
                                 @Param("visible") Boolean visible);
 
     /**
-     * 根据ID查询产品
+     * Query Product by ID
      */
     Product selectById(@Param("id") Long id);
     
     /**
-     * 插入产品
+     * Insert Product
      */
     int insert(Product product);
     
     /**
-     * 更新产品
+     * Update Product
      */
     int update(Product product);
     
     /**
-     * 删除产品
+     * Delete Product by ID
      */
     int deleteById(@Param("id") Long id);
     
     /**
-     * 更新产品可见性
+     * Update Product Visibility
      */
     int updateVisibility(@Param("id") Long id, @Param("visible") Boolean visible);
     
     /**
-     * 查询可见产品列表
+     * Query Visible Product List
      */
     List<Product> selectVisibleProducts();
     
     /**
-     * 根据ID列表批量查询产品
+     * Batch Query Products by ID List
      */
     List<Product> selectByIds(@Param("ids") List<Long> ids);
     
     /**
-     * 批量更新产品
+     * Batch Update Products
      */
     int batchUpdate(@Param("products") List<Product> products);
     
     /**
-     * 根据名称查询产品
+     * Query Product by Name
      */
     Product selectByName(@Param("name") String name);
 } 

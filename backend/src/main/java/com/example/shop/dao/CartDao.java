@@ -8,63 +8,63 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 购物车DAO接口
+ * Cart DAO Interface
  */
 @Mapper
 public interface CartDao {
     
     /**
-     * 根据用户ID查询购物车
+     * Query Cart by User ID
      */
     Cart selectByUserId(@Param("userId") Long userId);
     
     /**
-     * 创建购物车
+     * Create Cart
      */
     int insertCart(Cart cart);
     
     /**
-     * 查询购物车项目列表
+     * Query Cart Item List
      */
     List<CartItem> selectCartItems(@Param("cartId") Long cartId);
     
     /**
-     * 根据ID查询购物车项目
+     * Query Cart Item by ID
      */
     CartItem selectCartItemById(@Param("id") Long id);
     
     /**
-     * 根据购物车ID和产品ID查询购物车项目
+     * Query Cart Item by Cart ID and Product ID
      */
     CartItem selectCartItemByCartIdAndProductId(@Param("cartId") Long cartId, @Param("productId") Long productId);
     
     /**
-     * 插入购物车项目
+     * Insert Cart Item
      */
     int insertCartItem(CartItem cartItem);
     
     /**
-     * 更新购物车项目
+     * Update Cart Item
      */
     int updateCartItem(CartItem cartItem);
     
     /**
-     * 删除购物车项目
+     * Delete Cart Item by ID
      */
     int deleteCartItemById(@Param("id") Long id);
     
     /**
-     * 删除购物车所有项目
+     * Delete All Cart Items by Cart ID
      */
     int deleteCartItemsByCartId(@Param("cartId") Long cartId);
     
     /**
-     * 查询购物车项目数量
+     * Query Cart Item Count
      */
     Integer countCartItems(@Param("cartId") Long cartId);
     
     /**
-     * 计算购物车总金额
+     * Calculate Cart Total Amount
      */
     java.math.BigDecimal sumCartTotal(@Param("cartId") Long cartId);
 } 

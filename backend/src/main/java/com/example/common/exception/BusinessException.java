@@ -3,18 +3,18 @@ package com.example.common.exception;
 import lombok.Getter;
 
 /**
- * 业务异常类
+ * Business Exception Class
  */
 @Getter
 public class BusinessException extends RuntimeException {
     
     /**
-     * 错误码
+     * Error Code
      */
     private final ErrorCode errorCode;
     
     /**
-     * 错误详细信息
+     * Error Details
      */
     private final String details;
     
@@ -37,21 +37,21 @@ public class BusinessException extends RuntimeException {
     }
     
     /**
-     * 获取错误码
+     * Get Error Code
      */
     public Integer getCode() {
         return errorCode.getCode();
     }
     
     /**
-     * 获取错误消息
+     * Get Error Message
      */
     public String getErrorMessage() {
         return errorCode.getMessage();
     }
     
     /**
-     * 获取完整错误信息
+     * Get Full Error Message
      */
     public String getFullMessage() {
         return getMessage();

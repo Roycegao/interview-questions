@@ -9,32 +9,32 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
- * 更新产品请求
+ * Update Product Request
  */
 @Data
 public class ProductUpdateRequest {
     /**
-     * 产品名称
+     * Product Name
      */
-    @NotBlank(message = "产品名称不能为空")
+    @NotBlank(message = "Product name cannot be empty")
     private String name;
     
     /**
-     * 产品价格
+     * Product Price
      */
-    @NotNull(message = "产品价格不能为空")
-    @DecimalMin(value = "0.01", message = "产品价格必须大于0")
+    @NotNull(message = "Product price cannot be empty")
+    @DecimalMin(value = "0.01", message = "Product price must be greater than 0")
     private BigDecimal price;
     
     /**
-     * 库存数量
+     * Inventory Quantity
      */
-    @NotNull(message = "库存数量不能为空")
-    @Min(value = 0, message = "库存数量不能小于0")
+    @NotNull(message = "Inventory quantity cannot be empty")
+    @Min(value = 0, message = "Inventory quantity cannot be less than 0")
     private Integer quantity;
     
     /**
-     * 是否可见
+     * Whether visible
      */
     private Boolean visible = true;
 } 

@@ -7,21 +7,21 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 分页响应类
+ * Pagination Response Class
  */
 @Data
-@ApiModel(value = "PageResponse", description = "分页响应结果")
+@ApiModel(value = "PageResponse", description = "Pagination Response Result")
 public class PageResponse<T> {
     /**
-     * 数据列表
+     * Data List
      */
-    @ApiModelProperty(value = "数据列表")
+    @ApiModelProperty(value = "Data List")
     private List<T> list;
     
     /**
-     * 分页信息
+     * Pagination Information
      */
-    @ApiModelProperty(value = "分页信息")
+    @ApiModelProperty(value = "Pagination Information")
     private Pagination pagination;
     
     public PageResponse() {
@@ -33,33 +33,33 @@ public class PageResponse<T> {
     }
     
     /**
-     * 分页信息类
+     * Pagination Information Class
      */
     @Data
-    @ApiModel(value = "Pagination", description = "分页信息")
+    @ApiModel(value = "Pagination", description = "Pagination Information")
     public static class Pagination {
         /**
-         * 当前页码
+         * Current Page Number
          */
-        @ApiModelProperty(value = "当前页码", example = "1")
+        @ApiModelProperty(value = "Current Page Number", example = "1")
         private Integer pageNum;
         
         /**
-         * 每页大小
+         * Page Size
          */
-        @ApiModelProperty(value = "每页大小", example = "10")
+        @ApiModelProperty(value = "Page Size", example = "10")
         private Integer pageSize;
         
         /**
-         * 总记录数
+         * Total Record Count
          */
-        @ApiModelProperty(value = "总记录数", example = "100")
+        @ApiModelProperty(value = "Total Record Count", example = "100")
         private Long total;
         
         /**
-         * 总页数
+         * Total Page Count
          */
-        @ApiModelProperty(value = "总页数", example = "10")
+        @ApiModelProperty(value = "Total Page Count", example = "10")
         private Integer totalPages;
         
         public Pagination() {

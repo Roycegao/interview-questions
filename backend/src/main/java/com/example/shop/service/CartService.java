@@ -3,42 +3,42 @@ package com.example.shop.service;
 import com.example.shop.model.entity.Cart;
 
 /**
- * 购物车Service接口
+ * Cart Service Interface
  */
 public interface CartService {
     
     /**
-     * 获取购物车
+     * Get Cart
      */
     Cart getCart(Long userId);
     
     /**
-     * 添加商品到购物车
+     * Add Product to Cart
      */
     void addToCart(Long userId, Long productId, Integer quantity);
     
     /**
-     * 更新购物车商品数量
+     * Update Cart Item Quantity
      */
     void updateCartItem(Long userId, Long itemId, Integer quantity);
     
     /**
-     * 删除购物车商品
+     * Remove Product from Cart
      */
     void removeFromCart(Long userId, Long itemId);
     
     /**
-     * 清空购物车
+     * Clear Cart
      */
     void clearCart(Long userId);
     
     /**
-     * 获取购物车商品数量
+     * Get Cart Item Count
      */
     Integer getCartItemCount(Long userId);
     
     /**
-     * 计算购物车总价
+     * Calculate Cart Total
      */
     java.math.BigDecimal getCartTotal(Long userId);
 } 

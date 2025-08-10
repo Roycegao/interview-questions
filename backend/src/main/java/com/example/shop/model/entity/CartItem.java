@@ -7,53 +7,53 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 购物车项目实体类
+ * Cart Item Entity Class
  */
 @Data
 public class CartItem {
     /**
-     * 购物车项目ID
+     * Cart Item ID
      */
     private Long id;
     
     /**
-     * 购物车ID
+     * Cart ID
      */
     private Long cartId;
     
     /**
-     * 产品ID
+     * Product ID
      */
     private Long productId;
     
     /**
-     * 产品名称
+     * Product Name
      */
     private String productName;
     
     /**
-     * 产品价格
+     * Product Price
      */
     private BigDecimal price;
     
     /**
-     * 数量
+     * Quantity
      */
     private Integer quantity;
     
     /**
-     * 总价
+     * Total Price
      */
     private BigDecimal totalPrice;
     
     /**
-     * 创建时间
+     * Created Time
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
     
     /**
-     * 更新时间
+     * Updated Time
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updatedAt;

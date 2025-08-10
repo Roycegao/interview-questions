@@ -44,9 +44,9 @@ pom.xml                          # Maven dependencies and build configuration
 ## Project Startup Process
 
 ### Prerequisites
-- **Java**: JDK 1.8 or higher
+- **Java**: JDK 1.8
 - **Maven**: 3.6 or higher
-- **MySQL**: 8.0 or higher
+- **MySQL**: 5.7 or higher
 - **IDE**: IntelliJ IDEA, Eclipse, or VS Code with Java extensions
 
 ### Step 1: Database Setup

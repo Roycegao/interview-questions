@@ -33,10 +33,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * ProductController 单元测试
+ * ProductController Unit Test
  */
 @ExtendWith(MockitoExtension.class)
-@DisplayName("商品控制器单元测试")
+@DisplayName("Product Controller Unit Test")
 class ProductControllerTest {
 
     private MockMvc mockMvc;
@@ -57,7 +57,7 @@ class ProductControllerTest {
         
         testProduct = new Product();
         testProduct.setId(1L);
-        testProduct.setName("测试商品");
+        testProduct.setName("Test Product");
         testProduct.setPrice(new BigDecimal("99.99"));
         testProduct.setQuantity(100);
         testProduct.setVisible(true);
@@ -66,7 +66,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("获取商品详情 - 成功")
+    @DisplayName("Get Product Details - Success")
     void testGetProduct_Success() throws Exception {
         // Given
         when(productService.getProductById(1L)).thenReturn(testProduct);
@@ -77,12 +77,12 @@ class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data.id").value(1))
-                .andExpect(jsonPath("$.data.name").value("测试商品"))
+                .andExpect(jsonPath("$.data.name").value("Test Product"))
                 .andExpect(jsonPath("$.data.price").value(99.99));
     }
 
     @Test
-    @DisplayName("获取商品详情 - 商品不存在")
+    @DisplayName("Get Product Details - Product Not Found")
     void testGetProduct_NotFound() throws Exception {
         // Given
         when(productService.getProductById(999L)).thenReturn(null);
@@ -96,7 +96,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("获取可见商品列表 - 成功")
+    @DisplayName("Get Visible Products List - Success")
     void testGetVisibleProducts_Success() throws Exception {
         // Given
         List<Product> products = Arrays.asList(testProduct);
@@ -109,11 +109,11 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data").isArray())
                 .andExpect(jsonPath("$.data[0].id").value(1))
-                .andExpect(jsonPath("$.data[0].name").value("测试商品"));
+                .andExpect(jsonPath("$.data[0].name").value("Test Product"));
     }
 
     @Test
-    @DisplayName("分页查询商品 - 成功")
+    @DisplayName("Pagination Query Products - Success")
     void testGetProducts_Success() throws Exception {
         // Given
         List<Product> products = Arrays.asList(testProduct);
@@ -134,11 +134,11 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("创建商品 - 成功")
+    @DisplayName("Create Product - Success")
     void testCreateProduct_Success() throws Exception {
         // Given
         ProductCreateRequest request = new ProductCreateRequest();
-        request.setName("新商品");
+        request.setName("New Product");
         request.setPrice(new BigDecimal("199.99"));
         request.setQuantity(50);
         request.setVisible(true);
@@ -156,11 +156,11 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("创建商品 - 参数验证失败")
+    @DisplayName("Create Product - Parameter Validation Failed")
     void testCreateProduct_ValidationFailed() throws Exception {
         // Given
         ProductCreateRequest request = new ProductCreateRequest();
-        // 不设置必填字段，触发验证失败
+        // Don't set required fields, trigger validation failure
 
         // When & Then
         mockMvc.perform(post("/api/products")
@@ -171,11 +171,11 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("更新商品 - 成功")
+    @DisplayName("Update Product - Success")
     void testUpdateProduct_Success() throws Exception {
         // Given
         ProductUpdateRequest request = new ProductUpdateRequest();
-        request.setName("更新后的商品");
+        request.setName("Updated Product");
         request.setPrice(new BigDecimal("299.99"));
         request.setQuantity(75);
         request.setVisible(true);
@@ -193,10 +193,10 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("删除商品 - 成功")
+    @DisplayName("Delete Product - Success")
     void testDeleteProduct_Success() throws Exception {
         // Given
-        // ProductService.deleteProduct 是 void 方法，不需要mock返回值
+        // ProductService.deleteProduct is a void method, no need to mock return value
 
         // When & Then
         mockMvc.perform(delete("/api/products/{id}", 1L))
@@ -207,7 +207,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @DisplayName("更新商品可见性 - 成功")
+    @DisplayName("Update Product Visibility - Success")
     void testUpdateProductVisibility_Success() throws Exception {
         // Given
         ProductVisibilityUpdateRequest request = new ProductVisibilityUpdateRequest();

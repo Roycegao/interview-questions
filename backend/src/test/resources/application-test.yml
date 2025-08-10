@@ -1,33 +1,33 @@
 server:
-  port: 0  # 随机端口
+  port: 0  # Random port
 
 spring:
-  # 使用H2内存数据库进行测试
+  # Use H2 in-memory database for testing
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
     username: sa
     password: 
     driver-class-name: org.h2.Driver
-    # 初始化数据库
+    # Initialize database
     sql:
       init:
         schema-locations: classpath:sql/schema.sql
         mode: always
   
-  # H2控制台（可选，用于调试）
+  # H2 Console (Optional, for debugging)
   h2:
     console:
       enabled: true
       path: /h2-console
   
-  # JPA配置（如果需要）
+  # JPA Configuration (if needed)
   jpa:
     hibernate:
       ddl-auto: create-drop
     show-sql: true
     database-platform: org.hibernate.dialect.H2Dialect
 
-# MyBatis配置
+# MyBatis Configuration
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.shop.model.entity
@@ -35,7 +35,7 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# 分页插件
+# Pagination Plugin
 pagehelper:
   returnPageInfo: check
   params: count=countSql
@@ -43,7 +43,7 @@ pagehelper:
   reasonable: true
   helperDialect: h2
 
-# 日志配置
+# Logging Configuration
 logging:
   level:
     com.example.shop: DEBUG

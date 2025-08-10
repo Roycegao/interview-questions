@@ -6,14 +6,14 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- * 更新购物车商品数量请求
+ * Update Cart Item Quantity Request
  */
 @Data
 public class CartItemUpdateRequest {
     /**
-     * 数量
+     * Quantity
      */
-    @NotNull(message = "数量不能为空")
-    @Min(value = 1, message = "数量必须大于0")
+    @NotNull(message = "Quantity cannot be empty")
+    @Min(value = 1, message = "Quantity must be greater than 0")
     private Integer quantity;
 } 

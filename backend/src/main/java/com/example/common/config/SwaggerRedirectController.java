@@ -4,14 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Knife4j UI 重定向控制器
- * 提供多种访问路径的重定向支持
+ * Knife4j UI Redirect Controller
+ * Provides redirect support for multiple access paths
  */
 @Controller
 public class SwaggerRedirectController {
 
     /**
-     * 重定向到 Knife4j 主页面
+     * Redirect to Knife4j main page
      */
     @GetMapping("/swagger-ui.html")
     public String redirectToSwaggerUi() {
@@ -19,7 +19,7 @@ public class SwaggerRedirectController {
     }
     
     /**
-     * 重定向到 Knife4j 主页面
+     * Redirect to Knife4j main page
      */
     @GetMapping("/swagger")
     public String redirectToSwagger() {
@@ -27,7 +27,7 @@ public class SwaggerRedirectController {
     }
     
     /**
-     * 重定向到 Knife4j 主页面
+     * Redirect to Knife4j main page
      */
     @GetMapping("/api-docs")
     public String redirectToApiDocs() {
