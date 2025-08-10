@@ -242,14 +242,7 @@ java -jar target/shop-admin-0.0.1-SNAPSHOT.jar
   - Schema documentation
   - API versioning
 
-## Testing
-
-### Test Coverage
-- **Line Coverage**: Minimum 60%
-- **Branch Coverage**: Minimum 50%
-- **Tools**: JaCoCo, JUnit, Mockito, TestContainers
-
-### Running Tests
+## Running Tests
 ```bash
 mvn test
 mvn jacoco:report
