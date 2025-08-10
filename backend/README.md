@@ -255,17 +255,6 @@ mvn test
 mvn jacoco:report
 ```
 
-## Performance & Scalability
-
-### Database Optimization
-- Proper indexing on frequently queried fields
-- Connection pooling with Druid
-- Query optimization with MyBatis
-
-### Caching Strategy
-- Response caching enabled for Knife4j
-- Request caching for API documentation
-
 ## Security Considerations
 
 ### Data Protection
