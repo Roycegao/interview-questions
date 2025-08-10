@@ -33,7 +33,6 @@ interview-questions/
 - **Database**: MySQL with MyBatis
 - **Architecture**: RESTful API endpoints
 - **Testing**: TDD practices
-- **Deployment**: Docker support
 
 ## Getting Started
 
