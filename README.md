@@ -26,14 +26,13 @@ interview-questions/
 - **Language**: TypeScript
 - **Build Tools**: Babel, Webpack
 - **Styling**: CSS/LESS/SASS support
-- **Testing**: Jest + Enzyme (bonus)
+- **Testing**: Jest
 
 ### Backend
 - **Framework**: Spring Boot (Java)
 - **Database**: MySQL with MyBatis
 - **Architecture**: RESTful API endpoints
 - **Testing**: TDD practices
-- **Deployment**: Docker support
 
 ## Getting Started
 
@@ -61,16 +60,3 @@ This project follows MVP (Minimum Viable Product) development principles, allowi
 - Demonstrate both frontend and backend skills
 - Showcase clean code structure and best practices
 - Implement proper separation of concerns
-
-## Requirements
-
-The application must support:
-- Product CRUD operations
-- Shopping cart management
-- User-friendly interfaces
-- Responsive design
-- Clear documentation
-
-## Contact
-
-For questions about this project, please refer to the original assignment document: [shopping_website.md](./shopping_website.md)
