@@ -7,7 +7,7 @@ This is a Spring Boot-based e-commerce backend service that provides RESTful API
 ## Technology Stack
 
 - **Framework**: Spring Boot 2.7.9
-- **Database**: MySQL 8.0+ with Druid connection pool
+- **Database**: MySQL 5.7+ with Druid connection pool
 - **ORM**: MyBatis with PageHelper for pagination
 - **API Documentation**: Knife4j (Enhanced Swagger UI)
 - **Security**: Jasypt for property encryption
