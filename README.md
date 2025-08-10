@@ -1,6 +1,6 @@
 # Basic Shop Web Application
 
-A full-stack e-commerce web application built as a job interview assignment, demonstrating both frontend and backend development skills.
+A full-stack e-commerce web application.
 
 ## Project Overview
 
