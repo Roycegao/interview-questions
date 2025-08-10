@@ -1,7 +1,7 @@
 -- Create database
-CREATE DATABASE IF NOT EXISTS basic_shop DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS shop DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE basic_shop;
+USE shop;
 
 CREATE TABLE IF NOT EXISTS `products` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Product ID',

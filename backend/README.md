@@ -73,8 +73,8 @@ pom.xml                          # Maven dependencies and build configuration
    mysql -u root -p < sql/shop.sql
    
    # Or execute manually:
-   # CREATE DATABASE IF NOT EXISTS basic_shop DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-   # USE basic_shop;
+   # CREATE DATABASE IF NOT EXISTS shop DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   # USE shop;
    # Then copy and paste the contents of sql/shop.sql
    ```
 
@@ -86,7 +86,7 @@ pom.xml                          # Maven dependencies and build configuration
    spring:
      datasource:
        druid:
-         url: jdbc:mysql://localhost:3306/basic_shop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+         url: jdbc:mysql://localhost:3306/shop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
          username: your_username
          password: ENC(your_encrypted_password)
    ```
@@ -146,7 +146,7 @@ pom.xml                          # Maven dependencies and build configuration
 
 3. **Verify Database Tables**
    ```sql
-   USE basic_shop;
+   USE shop;
    SHOW TABLES;
    -- Should show: products, carts, cart_items
    
@@ -166,7 +166,7 @@ pom.xml                          # Maven dependencies and build configuration
 2. **Database Connection Failed**
    - Verify MySQL service is running
    - Check database credentials
-   - Ensure database `basic_shop` exists
+   - Ensure database `shop` exists
    - Verify MySQL user has proper permissions
 
 3. **Maven Build Errors**
@@ -408,7 +408,7 @@ The application uses MySQL with Druid connection pool for optimal performance:
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/basic_shop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+      url: jdbc:mysql://localhost:3306/shop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
       username: root
       password: ENC(encrypted_password)
       initial-size: 1
