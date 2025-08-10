@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import GlobalErrorHandler from '../GlobalErrorHandler';
 
-// 创建一个简单的 store 用于测试
+// Create a simple store for testing
 const createTestStore = (initialState = {}) => {
   return configureStore({
     reducer: {
-      // 添加一个简单的 reducer 来模拟错误状态
+      // Add a simple reducer to simulate error state
       error: (state = initialState, action: any) => {
         if (action.type === 'SET_ERROR') {
           return { message: action.payload };
@@ -30,7 +30,7 @@ describe('GlobalErrorHandler', () => {
       </Provider>
     );
     
-    // 组件应该正常渲染，即使没有错误
+    // Component should render normally even without errors
     expect(document.body).toBeInTheDocument();
   });
 
@@ -43,7 +43,7 @@ describe('GlobalErrorHandler', () => {
       </Provider>
     );
     
-    // 应该显示错误消息
+    // Should display error message
     expect(screen.getByText('Test error message')).toBeInTheDocument();
   });
 
@@ -56,7 +56,7 @@ describe('GlobalErrorHandler', () => {
       </Provider>
     );
     
-    // 没有错误时，组件应该不显示任何内容
+    // When there's no error, component should not display anything
     expect(container.firstChild).toBeNull();
   });
 }); 

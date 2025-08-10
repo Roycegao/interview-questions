@@ -7,7 +7,7 @@ import productsReducer from '../store/slices/productsSlice';
 import cartReducer from '../store/slices/cartSlice';
 import App from '../App';
 
-// 创建测试用的store
+// Create test store for testing
 const createTestStore = () => {
   return configureStore({
     reducer: {
@@ -17,7 +17,7 @@ const createTestStore = () => {
   });
 };
 
-// 测试用的包装器组件
+// Test wrapper component for providing context
 const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const store = createTestStore();
   return (

@@ -1,4 +1,4 @@
-// 通用工具函数测试
+// Utility function tests for e-commerce application
 describe('Utility Functions', () => {
   describe('Date and Time Utilities', () => {
     it('should format date correctly', () => {
