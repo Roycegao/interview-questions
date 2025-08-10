@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.dao.ProductDao">
+
+    <!-- 结果映射 -->
+    <resultMap id="ProductResultMap" type="com.example.shop.model.entity.Product">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="quantity" property="quantity"/>
+        <result column="visible" property="visible"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <!-- 基础字段 -->
+    <sql id="Base_Column_List">
+        id, name, price, quantity, visible, created_at, updated_at
+    </sql>
+
+    <!-- 查询条件 -->
+    <sql id="Where_Clause">
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="minPrice != null">
+                AND price &gt;= #{minPrice}
+            </if>
+            <if test="maxPrice != null">
+                AND price &lt;= #{maxPrice}
+            </if>
+            <if test="visible != null">
+                AND visible = #{visible}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 查询产品列表（分页） -->
+    <select id="selectProducts" resultMap="ProductResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM products
+        <include refid="Where_Clause"/>
+        ORDER BY created_at DESC
+    </select>
+
+
+    <!-- 根据ID查询产品 -->
+    <select id="selectById" resultMap="ProductResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM products
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据名称查询产品 -->
+    <select id="selectByName" resultMap="ProductResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM products
+        WHERE name = #{name}
+        LIMIT 1
+    </select>
+
+    <!-- 插入产品 -->
+    <insert id="insert" parameterType="com.example.shop.model.entity.Product" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO products (name, price, quantity, visible, created_at, updated_at)
+        VALUES (#{name}, #{price}, #{quantity}, #{visible}, NOW(), NOW())
+    </insert>
+
+    <!-- 更新产品 -->
+    <update id="update" parameterType="com.example.shop.model.entity.Product">
+        UPDATE products
+        SET name = #{name},
+            price = #{price},
+            quantity = #{quantity},
+            visible = #{visible},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除产品 -->
+    <delete id="deleteById">
+        DELETE FROM products WHERE id = #{id}
+    </delete>
+
+    <!-- 更新产品可见性 -->
+    <update id="updateVisibility">
+        UPDATE products
+        SET visible = #{visible},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 查询可见产品列表 -->
+    <select id="selectVisibleProducts" resultMap="ProductResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM products
+        WHERE visible = true
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据ID列表批量查询产品 -->
+    <select id="selectByIds" resultMap="ProductResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM products
+        WHERE id IN
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- 批量更新产品 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="products" item="product" separator=";">
+            UPDATE products
+            SET name = #{product.name},
+                price = #{product.price},
+                quantity = #{product.quantity},
+                visible = #{product.visible},
+                updated_at = NOW()
+            WHERE id = #{product.id}
+        </foreach>
+    </update>
+
+</mapper> 

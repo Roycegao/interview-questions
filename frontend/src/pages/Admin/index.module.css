@@ -1,0 +1,82 @@
+ /* Admin page styles */
+.adminPage {
+  padding: 24px;
+}
+
+.headerRow {
+  margin-bottom: 24px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.headerRowMobile {
+  margin-bottom: 16px;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.titleCol {
+  margin-bottom: 0;
+}
+
+.titleColMobile {
+  margin-bottom: 12px;
+}
+
+.pageTitle {
+  margin: 0;
+}
+
+.pageTitleMobile {
+  margin: 0;
+}
+
+
+.addButtonMobile {
+  width: 100%;
+}
+
+.searchRow {
+  margin-bottom: 24px;
+}
+
+.searchRowMobile {
+  margin-bottom: 16px;
+}
+
+.modal {
+  top: 10%;
+}
+
+.modalMobile {
+  top: 5%;
+}
+
+.formItem {
+  width: 100%;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .headerRow {
+    margin-bottom: 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .titleCol {
+    margin-bottom: 12px;
+  }
+  
+  .addButton {
+    width: 100%;
+  }
+  
+  .searchRow {
+    margin-bottom: 16px;
+  }
+  
+  .modal {
+    top: 5%;
+  }
+}

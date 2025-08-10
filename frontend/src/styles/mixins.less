@@ -1,0 +1,136 @@
+// Import variables
+@import './variables.less';
+
+// Clear float
+.clearfix() {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+// Text ellipsis
+.text-ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Multi-line text ellipsis
+.text-ellipsis-multiline(@lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: @lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Center layout
+.flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Vertical center
+.flex-center-vertical() {
+  display: flex;
+  align-items: center;
+}
+
+// Horizontal center
+.flex-center-horizontal() {
+  display: flex;
+  justify-content: center;
+}
+
+// Space between
+.flex-between() {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Responsive breakpoints
+.responsive(@screen, @content) {
+  @media (min-width: @screen) {
+    @content();
+  }
+}
+
+// Shadow effects
+.box-shadow(@level: 1) when (@level = 1) {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.box-shadow(@level: 2) when (@level = 2) {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.box-shadow(@level: 3) when (@level = 3) {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+// Transition animations
+.transition(@property: all, @duration: @animation-duration-base, @timing: ease) {
+  transition: @property @duration @timing;
+}
+
+// Button styles
+.button-base() {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: @spacing-sm @spacing-md;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-base;
+  background: white;
+  color: @text-color;
+  font-size: @font-size-base;
+  font-weight: @font-weight-normal;
+  cursor: pointer;
+  .transition();
+  
+  &:hover {
+    border-color: @primary-color;
+    color: @primary-color;
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+// Card styles
+.card-base() {
+  background: white;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-base;
+  .box-shadow(1);
+  .transition();
+  
+  &:hover {
+    .box-shadow(2);
+  }
+}
+
+// Input field styles
+.input-base() {
+  width: 100%;
+  padding: @spacing-sm @spacing-md;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-base;
+  font-size: @font-size-base;
+  .transition(border-color);
+  
+  &:focus {
+    outline: none;
+    border-color: @primary-color;
+    box-shadow: 0 0 0 2px fade(@primary-color, 20%);
+  }
+  
+  &::placeholder {
+    color: @text-color-secondary;
+  }
+} 

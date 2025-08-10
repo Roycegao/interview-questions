@@ -1,42 +1,73 @@
 server:
   port: 8080
+
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  
+  # Static resource configuration, ensure Knife4j UI can be accessed
+  web:
+    resources:
+      add-mappings: true
+      static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+
+  # Data source configuration
   datasource:
-    #druid相关配置
+    # Druid related configuration
     druid:
-      #监控统计拦截的filters
+      # Monitoring statistics intercepting filters
       filters: stat
       driver-class-name: com.mysql.jdbc.Driver
-      #基本属性
+      # Basic properties
       url: jdbc:mysql://124.220.68.114:3306/shop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
       username: root
       password: ENC(bwPG9N6ZAU2amzsHSO6fpRFzVh/HOnYH)
-      #配置初始化大小/最小/最大
+      # Configure initial size/min/max
       initial-size: 1
       min-idle: 1
       max-active: 20
-      #获取连接等待超时时间
+      # Connection acquisition wait timeout
       max-wait: 60000
-      #间隔多久进行一次检测，检测需要关闭的空闲连接
+      # How often to perform detection, detect idle connections that need to be closed
       time-between-eviction-runs-millis: 60000
-      #一个连接在池中最小生存的时间
+      # Minimum survival time of a connection in the pool
       min-evictable-idle-time-millis: 300000
       validation-query: SELECT 'x'
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false
-      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      # Enable PSCache, and specify the size of PSCache on each connection. Set to true for oracle, false for mysql. Recommended to set to false for more sharding
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
     type: com.alibaba.druid.pool.DruidDataSource
 
+# Knife4j Configuration
+knife4j:
+  enable: true
+  setting:
+    # Enable enhanced configuration
+    enableSwaggerModels: true
+    enableDocumentManage: true
+    enableAfterScript: true
+    enableFilterMultipartApiMethodType: true
+    enableFilterMultipartApis: false
+    enableHost: false
+    enableHostText: ""
+    enableRequestCache: true
+    enableResponseCache: true
+    enableVersion: false
+  # Enable production environment masking
+  production: false
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.winterchen.model
+  type-aliases-package: com.example.shop.model
+  configuration:
+    map-underscore-to-camel-case: true
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-
-
-#pagehelper
+# PageHelper Configuration
 pagehelper:
   returnPageInfo: check
   params: count=countSql
@@ -46,13 +77,13 @@ pagehelper:
 
 jasypt:
   encryptor:
-    # 盐值
+    # Salt value
     password: USDT_JIU_BU_GEI_NI
-    # 指定加密方式
+    # Specify encryption method
     algorithm: PBEWithMD5AndDES
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
     property:
-      # 标识为加密属性的前缀
+      # Prefix to identify encrypted properties
       prefix: ENC(
-      # 标识为加密属性的后缀
+      # Suffix to identify encrypted properties
       suffix: )

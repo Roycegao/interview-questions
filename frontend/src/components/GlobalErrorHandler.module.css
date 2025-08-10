@@ -1,0 +1,13 @@
+ /* GlobalErrorHandler component styles */
+.errorContainer {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    max-width: 400px;
+  }
+  
+  .errorAlert {
+    margin-bottom: 8px;
+  }

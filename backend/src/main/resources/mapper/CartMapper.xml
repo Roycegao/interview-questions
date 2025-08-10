@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.dao.CartDao">
+
+    <!-- 购物车结果映射 -->
+    <resultMap id="CartResultMap" type="com.example.shop.model.entity.Cart">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+        <collection property="items" ofType="com.example.shop.model.entity.CartItem" select="selectCartItems" column="id"/>
+    </resultMap>
+
+    <!-- 购物车项目结果映射 -->
+    <resultMap id="CartItemResultMap" type="com.example.shop.model.entity.CartItem">
+        <id column="id" property="id"/>
+        <result column="cart_id" property="cartId"/>
+        <result column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="price" property="price"/>
+        <result column="quantity" property="quantity"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <!-- 根据用户ID查询购物车 -->
+    <select id="selectByUserId" resultMap="CartResultMap">
+        SELECT id, user_id, created_at, updated_at
+        FROM carts
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 创建购物车 -->
+    <insert id="insertCart" parameterType="com.example.shop.model.entity.Cart" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO carts (user_id, created_at, updated_at)
+        VALUES (#{userId}, NOW(), NOW())
+    </insert>
+
+    <!-- 查询购物车项目列表 -->
+    <select id="selectCartItems" resultMap="CartItemResultMap">
+        SELECT id, cart_id, product_id, product_name, price, quantity, total_price, created_at, updated_at
+        FROM cart_items
+        WHERE cart_id = #{cartId}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据ID查询购物车项目 -->
+    <select id="selectCartItemById" resultMap="CartItemResultMap">
+        SELECT id, cart_id, product_id, product_name, price, quantity, total_price, created_at, updated_at
+        FROM cart_items
+        WHERE id = #{id}
+    </select>
+
+    <!-- 根据购物车ID和产品ID查询购物车项目 -->
+    <select id="selectCartItemByCartIdAndProductId" resultMap="CartItemResultMap">
+        SELECT id, cart_id, product_id, product_name, price, quantity, total_price, created_at, updated_at
+        FROM cart_items
+        WHERE cart_id = #{cartId} AND product_id = #{productId}
+    </select>
+
+    <!-- 插入购物车项目 -->
+    <insert id="insertCartItem" parameterType="com.example.shop.model.entity.CartItem" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO cart_items (cart_id, product_id, product_name, price, quantity, total_price, created_at, updated_at)
+        VALUES (#{cartId}, #{productId}, #{productName}, #{price}, #{quantity}, #{totalPrice}, NOW(), NOW())
+    </insert>
+
+    <!-- 更新购物车项目 -->
+    <update id="updateCartItem" parameterType="com.example.shop.model.entity.CartItem">
+        UPDATE cart_items
+        SET quantity = #{quantity},
+            total_price = #{totalPrice},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除购物车项目 -->
+    <delete id="deleteCartItemById">
+        DELETE FROM cart_items WHERE id = #{id}
+    </delete>
+
+    <!-- 删除购物车所有项目 -->
+    <delete id="deleteCartItemsByCartId">
+        DELETE FROM cart_items WHERE cart_id = #{cartId}
+    </delete>
+
+    <!-- 查询购物车项目数量 -->
+    <select id="countCartItems" resultType="int">
+        SELECT COUNT(*)
+        FROM cart_items
+        WHERE cart_id = #{cartId}
+    </select>
+
+    <!-- 计算购物车总金额 -->
+    <select id="sumCartTotal" resultType="java.math.BigDecimal">
+        SELECT COALESCE(SUM(total_price), 0)
+        FROM cart_items
+        WHERE cart_id = #{cartId}
+    </select>
+
+</mapper> 

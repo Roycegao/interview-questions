@@ -1,0 +1,255 @@
+ /* Header component styles */
+  .header {
+    background: #fff;
+    padding: 0 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 64px;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+  }
+  
+  .headerMobile {
+    padding: 0 12px;
+    height: auto;
+    min-height: 64px;
+  }
+  
+  .headerSmallMobile {
+    padding: 0 8px;
+    height: auto;
+    min-height: 60px;
+  }
+  
+  .headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  flex-direction: row;
+  padding: 0;
+  width: 100%;
+}
+  
+  .headerContainerMobile {
+    flex-direction: column;
+    padding: 8px 0;
+    height: auto;
+    min-height: 64px;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+  
+  .headerContainerSmallMobile {
+    flex-direction: column;
+    padding: 6px 0;
+    height: auto;
+    min-height: 60px;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  /* 手机端第一行布局 */
+  .mobileTopRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .mobileTopRowSmall {
+    margin-bottom: 6px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1890ff;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  
+  .logoMobile {
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+  
+  .logoSmallMobile {
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  
+  .logoIcon {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+  
+  .logoIconMobile {
+    font-size: 16px;
+  }
+  
+  .logoIconSmallMobile {
+    font-size: 14px;
+  }
+
+  /* 手机端购物车按钮 */
+  .mobileCartButton {
+    flex-shrink: 0;
+    height: 28px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .mobileCartButtonSmall {
+    height: 24px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+  
+  .navigationMenu {
+  flex: 1;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  margin: 0;
+  display: flex;
+}
+
+/* Ensure PC端菜单保持水平布局 */
+.navigationMenu :global(.ant-menu-horizontal) {
+  display: flex !important;
+  flex-direction: row !important;
+  border: none;
+  background: transparent;
+}
+
+.navigationMenu :global(.ant-menu-item) {
+  display: inline-block !important;
+  float: none !important;
+}
+  
+  .navigationMenuMobile {
+    font-size: 12px;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+  
+  .navigationMenuSmallMobile {
+    font-size: 11px;
+    margin-bottom: 6px;
+    width: 100%;
+  }
+
+  .actionSpace {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .actionSpaceMobile {
+    justify-content: center;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .actionSpaceSmallMobile {
+    justify-content: center;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .buttonMobile {
+    font-size: 12px;
+    height: 28px;
+    padding: 0 12px;
+  }
+
+  .buttonSmallMobile {
+    font-size: 11px;
+    height: 24px;
+    padding: 0 8px;
+  }
+
+  /* Responsive breakpoints */
+@media (max-width: 768px) {
+  /* Only apply mobile styles to mobile classes */
+  .headerMobile {
+    padding: 0 12px;
+    height: auto;
+    min-height: 64px;
+  }
+  
+  .headerContainerMobile {
+    flex-direction: column;
+    padding: 8px 0;
+    height: auto;
+    min-height: 64px;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+  
+  .logoMobile {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .logoIconMobile {
+    font-size: 16px;
+  }
+  
+  .navigationMenuMobile {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .buttonMobile {
+    font-size: 12px;
+    height: 28px;
+    padding: 0 12px;
+  }
+}
+  
+  @media (max-width: 480px) {
+  /* Only apply small mobile styles to small mobile classes */
+  .headerSmallMobile {
+    padding: 0 8px;
+    height: auto;
+    min-height: 60px;
+  }
+  
+  .headerContainerSmallMobile {
+    padding: 6px 0;
+    height: auto;
+    min-height: 60px;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+  
+  .logoSmallMobile {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .logoIconSmallMobile {
+    font-size: 14px;
+  }
+  
+  .navigationMenuSmallMobile {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .buttonSmallMobile {
+    font-size: 11px;
+    height: 24px;
+    padding: 0 8px;
+  }
+}

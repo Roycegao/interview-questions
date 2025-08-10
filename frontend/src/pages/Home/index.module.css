@@ -1,0 +1,100 @@
+ /* Home page styles */
+.homePage {
+    padding: 24px;
+  }
+  
+  .welcomeSection {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  
+  .welcomeTitle {
+    margin-bottom: 16px;
+  }
+  
+  .welcomeIcon {
+    margin-right: 12px;
+    color: #1890ff;
+  }
+  
+  .featureCardsRow {
+    justify-content: center;
+  }
+  
+  .featureCard {
+    text-align: center;
+    height: 100%;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .featureCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .featureCardBody {
+    padding: 32px 24px;
+  }
+  
+  .iconContainer {
+    margin-bottom: 24px;
+  }
+  
+  .featureIcon {
+    font-size: 48px;
+  }
+  
+  .featureTitle {
+    margin-bottom: 16px;
+  }
+  
+  .featureDescription {
+    color: #666;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  
+  .featureButton {
+    border-radius: 8px;
+    height: 40px;
+    padding: 0 24px;
+  }
+  
+  /* Admin card styles */
+  .adminCard {
+    border: 2px solid rgba(24, 144, 255, 0.2);
+  }
+  
+  .adminIcon {
+    color: #1890ff;
+  }
+  
+  .adminButton {
+    background-color: #1890ff;
+    border-color: #1890ff;
+  }
+  
+  .adminButton:hover {
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+  }
+  
+  /* Cart card styles */
+  .shopCard {
+    border: 2px solid rgba(82, 196, 26, 0.2);
+  }
+  
+  .shopIcon {
+    color: #52c41a;
+  }
+  
+  .shopButton {
+    background-color: #52c41a;
+    border-color: #52c41a;
+  }
+  
+  .shopButton:hover {
+    background-color: #73d13d;
+    border-color: #73d13d;
+  }
