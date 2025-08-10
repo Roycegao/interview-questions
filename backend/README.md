@@ -20,14 +20,200 @@ This is a Spring Boot-based e-commerce backend service that provides RESTful API
 src/main/java/com/example/
 ├── ShopApplication.java          # Main application class
 ├── common/                       # Common utilities and response models
+│   ├── config/                   # Configuration classes
+│   ├── exception/                # Global exception handlers
+│   ├── req/                      # Common request models
+│   └── resp/                     # Common response models
 ├── shop/
-│   ├── controller/              # REST API controllers
-│   ├── service/                 # Business logic layer
-│   ├── dao/                     # Data access layer
-│   └── model/                   # Data models
-│       ├── entity/              # Database entities
-│       └── req/                 # Request DTOs
+│   ├── controller/               # REST API controllers
+│   ├── service/                  # Business logic layer
+│   ├── dao/                      # Data access layer
+│   └── model/                    # Data models
+│       ├── entity/               # Database entities
+│       └── req/                  # Request DTOs
+src/main/resources/
+├── application.yml               # Application configuration
+├── mapper/                       # MyBatis XML mapper files
+└── templates/                    # Template files
+src/test/                         # Test source code
+sql/
+└── shop.sql                      # Database initialization script
+pom.xml                          # Maven dependencies and build configuration
 ```
+
+## Project Startup Process
+
+### Prerequisites
+- **Java**: JDK 1.8 or higher
+- **Maven**: 3.6 or higher
+- **MySQL**: 8.0 or higher
+- **IDE**: IntelliJ IDEA, Eclipse, or VS Code with Java extensions
+
+### Step 1: Database Setup
+1. **Install MySQL Server**
+   ```bash
+   # For Windows: Download and install MySQL Installer
+   # For macOS: brew install mysql
+   # For Ubuntu: sudo apt-get install mysql-server
+   ```
+
+2. **Start MySQL Service**
+   ```bash
+   # Windows: Start MySQL service from Services
+   # macOS: brew services start mysql
+   # Ubuntu: sudo systemctl start mysql
+   ```
+
+3. **Create Database and Import Schema**
+   ```bash
+   # Connect to MySQL
+   mysql -u root -p
+   
+   # Import the database schema
+   mysql -u root -p < sql/shop.sql
+   
+   # Or execute manually:
+   # CREATE DATABASE IF NOT EXISTS basic_shop DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   # USE basic_shop;
+   # Then copy and paste the contents of sql/shop.sql
+   ```
+
+### Step 2: Configuration Setup
+1. **Update Database Connection**
+   - Open `src/main/resources/application.yml`
+   - Update the database URL, username, and password:
+   ```yaml
+   spring:
+     datasource:
+       druid:
+         url: jdbc:mysql://localhost:3306/basic_shop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+         username: your_username
+         password: ENC(your_encrypted_password)
+   ```
+
+2. **Encrypt Database Password (Optional)**
+   ```bash
+   # If you want to encrypt your password using Jasypt:
+   # The salt is already configured as: USDT_JIU_BU_GEI_NI
+   # You can use online Jasypt encryptors or implement a simple encryption utility
+   ```
+
+### Step 3: Build and Run
+1. **Clean and Compile**
+   ```bash
+   # Navigate to project directory
+   cd backend
+   
+   # Clean previous builds
+   mvn clean
+   
+   # Compile the project
+   mvn compile
+   ```
+
+2. **Run Tests (Optional but Recommended)**
+   ```bash
+   # Run all tests
+   mvn test
+   
+   # Generate test coverage report
+   mvn jacoco:report
+   ```
+
+3. **Start the Application**
+   ```bash
+   # Method 1: Using Maven Spring Boot plugin
+   mvn spring-boot:run
+   
+   # Method 2: Build JAR and run
+   mvn clean package
+   java -jar target/shop-admin-0.0.1-SNAPSHOT.jar
+   
+   # Method 3: Run from IDE
+   # Open ShopApplication.java and click the Run button
+   ```
+
+### Step 4: Verify Installation
+1. **Check Application Status**
+   - Application should start on port 8080
+   - Check console logs for successful startup message
+   - Verify database connection is established
+
+2. **Access API Documentation**
+   - Open browser and navigate to: `http://localhost:8080/doc.html`
+   - You should see the Knife4j enhanced Swagger UI
+   - Test the health check endpoint: `http://localhost:8080/api/products`
+
+3. **Verify Database Tables**
+   ```sql
+   USE basic_shop;
+   SHOW TABLES;
+   -- Should show: products, carts, cart_items
+   
+   SELECT * FROM products;
+   -- Should show sample products
+   ```
+
+### Troubleshooting Common Issues
+
+1. **Port Already in Use**
+   ```bash
+   # Change port in application.yml
+   server:
+     port: 8081
+   ```
+
+2. **Database Connection Failed**
+   - Verify MySQL service is running
+   - Check database credentials
+   - Ensure database `basic_shop` exists
+   - Verify MySQL user has proper permissions
+
+3. **Maven Build Errors**
+   ```bash
+   # Clear Maven cache
+   mvn clean
+   rm -rf ~/.m2/repository
+   mvn dependency:resolve
+   ```
+
+4. **Java Version Issues**
+   ```bash
+   # Check Java version
+   java -version
+   
+   # Ensure JAVA_HOME is set correctly
+   echo $JAVA_HOME
+   ```
+
+### Development Workflow
+
+1. **Code Changes**
+   - Make changes to Java source files
+   - Spring Boot DevTools will auto-reload (if enabled)
+   - Or restart the application manually
+
+2. **Database Changes**
+   - Update `sql/shop.sql` for schema changes
+   - Consider using Flyway or Liquibase for production
+
+3. **Testing**
+   ```bash
+   # Run specific test class
+   mvn test -Dtest=ProductServiceTest
+   
+   # Run tests with coverage
+   mvn clean test jacoco:report
+   ```
+
+4. **Building for Production**
+   ```bash
+   # Create production JAR
+   mvn clean package -DskipTests
+   
+   # Run production build
+   java -jar target/shop-admin-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+   ```
 
 ## Database Schema
 
@@ -213,6 +399,60 @@ fetch('/api/cart', { headers })
 - **Min Idle**: 1
 - **Max Wait**: 60 seconds
 
+## Configuration Details
+
+### Database Configuration
+The application uses MySQL with Druid connection pool for optimal performance:
+
+```yaml
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/basic_shop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+      username: root
+      password: ENC(encrypted_password)
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      max-wait: 60000
+```
+
+### Security Configuration
+- **Jasypt Encryption**: Database passwords are encrypted using Jasypt
+- **Salt Value**: `USDT_JIU_BU_GEI_NI`
+- **Algorithm**: `PBEWithMD5AndDES`
+- **Format**: `ENC(encrypted_value)`
+
+### API Documentation Configuration
+```yaml
+knife4j:
+  enable: true
+  setting:
+    enableSwaggerModels: true
+    enableDocumentManage: true
+    enableAfterScript: true
+  production: false  # Set to true for production
+```
+
+### MyBatis Configuration
+```yaml
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.shop.model
+  configuration:
+    map-underscore-to-camel-case: true
+```
+
+### Pagination Configuration
+```yaml
+pagehelper:
+  returnPageInfo: check
+  params: count=countSql
+  supportMethodsArguments: true
+  reasonable: true
+  helperDialect: mysql
+```
+
 ## Development Setup
 
 ### Prerequisites
@@ -329,6 +569,51 @@ Dockerfile not included - consider containerization for deployment
 - Consistent response formats
 - Proper HTTP status codes
 - Comprehensive Swagger documentation
+
+## Quick Start Guide
+
+### For Developers (5-Minute Setup)
+```bash
+# 1. Clone and navigate to project
+cd backend
+
+# 2. Setup database (one-time)
+mysql -u root -p < sql/shop.sql
+
+# 3. Update database credentials in application.yml
+
+# 4. Run the application
+mvn spring-boot:run
+
+# 5. Access API docs
+open http://localhost:8080/doc.html
+```
+
+### For Production Deployment
+```bash
+# 1. Build production JAR
+mvn clean package -DskipTests
+
+# 2. Configure production database
+# 3. Set environment variables
+# 4. Run with production profile
+java -jar target/shop-admin-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+```
+
+### API Testing Examples
+```bash
+# Test product listing
+curl http://localhost:8080/api/products
+
+# Test cart operations (replace USER_ID with actual value)
+curl -H "X-User-ID: 123456789" http://localhost:8080/api/cart
+
+# Add item to cart
+curl -X POST http://localhost:8080/api/cart/items \
+  -H "Content-Type: application/json" \
+  -H "X-User-ID: 123456789" \
+  -d '{"productId": 1, "quantity": 2}'
+```
 
 ## License
 
