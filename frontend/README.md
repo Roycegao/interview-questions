@@ -172,12 +172,6 @@ npm run test:coverage # Run tests with coverage report
 - React Testing Library for component testing
 - DOM testing utilities for integration tests
 
-## Browser Support
-
-### Production
-- Modern browsers (>0.2% market share)
-- Excludes IE and Opera Mini
-
 ### Development
 - Latest Chrome, Firefox, and Safari versions
 
