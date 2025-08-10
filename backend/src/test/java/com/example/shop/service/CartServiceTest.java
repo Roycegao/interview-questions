@@ -103,7 +103,7 @@ class CartServiceTest {
         newCart.setUserId(1L);
 
         when(cartDao.selectByUserId(1L)).thenReturn(null).thenReturn(newCart);
-        when(cartDao.insertCart(any(Cart.class)).thenReturn(1);
+        when(cartDao.insertCart(any(Cart.class))).thenReturn(1);
 
         // When
         Cart result = cartService.getCart(1L);
@@ -123,7 +123,7 @@ class CartServiceTest {
         when(productDao.selectById(1L)).thenReturn(testProduct);
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
         when(cartDao.selectCartItemByCartIdAndProductId(1L, 1L)).thenReturn(null);
-        when(cartDao.insertCartItem(any(CartItem.class)).thenReturn(1);
+        when(cartDao.insertCartItem(any(CartItem.class))).thenReturn(1);
 
         // When
         cartService.addToCart(1L, 1L, 2);
@@ -263,7 +263,7 @@ class CartServiceTest {
         List<CartItem> cartItems = Arrays.asList(testCartItem);
         when(cartDao.selectByUserId(1L)).thenReturn(testCart);
         when(cartDao.selectCartItems(1L)).thenReturn(cartItems);
-        when(productDao.selectByIds(Arrays.asList(1L)).thenReturn(Arrays.asList(testProduct));
+        when(productDao.selectByIds(Arrays.asList(1L))).thenReturn(Arrays.asList(testProduct));
         when(productDao.batchUpdate(anyList())).thenReturn(1);
 
         // When
