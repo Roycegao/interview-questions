@@ -26,7 +26,7 @@ interview-questions/
 - **Language**: TypeScript
 - **Build Tools**: Babel, Webpack
 - **Styling**: CSS/LESS/SASS support
-- **Testing**: Jest + Enzyme (bonus)
+- **Testing**: Jest
 
 ### Backend
 - **Framework**: Spring Boot (Java)
