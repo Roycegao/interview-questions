@@ -603,4 +603,4 @@ This project is licensed under the MIT License.
 
 ---
 
-For technical support or questions, please refer to the API documentation at `http://localhost:8080/doc.html` or contact the development team.
+For technical support or questions, please refer to the API documentation at `http://124.220.68.114:8080/doc.html` or contact the development team.
