@@ -230,8 +230,5 @@ Enable browser developer tools and check:
 
 ## License
 
-Private project - All rights reserved.
+MIT
 
----
-
-**Note**: This frontend application is designed to work seamlessly with a compatible backend API. Ensure all API endpoints and response formats match the specifications outlined in this document for optimal functionality. 
